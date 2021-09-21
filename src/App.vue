@@ -6,18 +6,34 @@
       <v-tabs align-with-title class="app-bar-tabs">
         <v-tab><router-link to="/">Home</router-link></v-tab>
         <v-tab><router-link to="/shop">Shop</router-link></v-tab>
-        <v-tab><router-link to="/contact">Contact</router-link></v-tab>
       </v-tabs>
 
-      <v-btn icon>
-        <v-icon>mdi-cart</v-icon>
-      </v-btn>
+      <router-link to="/cart" class="cart-link">
+        <v-btn icon>
+          <v-badge color="red" :content="cartProductsCount || '0'">
+            <v-icon>mdi-cart</v-icon>
+          </v-badge>
+        </v-btn>
+      </router-link>
     </v-app-bar>
 
     <v-main> <router-view /> </v-main>
   </v-app>
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  name: "App",
+  components: {},
+  data: () => ({ selectedProduct: {} }),
+  computed: {
+    ...mapGetters({ cartProductsCount: "cartProductsCount" }),
+  },
+  methods: { onAddToCartClicked() {} },
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -48,5 +64,11 @@
     display: block;
     line-height: 64px;
   }
+}
+
+.cart-link {
+  text-decoration: none;
+  display: block;
+  line-height: 64px;
 }
 </style>

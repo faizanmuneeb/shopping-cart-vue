@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="products-container" v-if="products.length > 0">
-      <div v-for="product of products" :key="product.id" class="product-item">
+      <div v-for="product of products" :key="product.id" class="product-item" @click="onProductClick(product.id)">
         <v-img
           alt="product-image"
           :src="product.image"
@@ -51,6 +51,9 @@ export default {
       this.selectedCategory = category;
       const products = await productService.getCategoryProducts(category);
       this.products = products;
+    },
+    onProductClick(productId) {
+      this.$router.push({ path: `shop/${productId}` });
     },
   },
 };
